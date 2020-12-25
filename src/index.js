@@ -1,9 +1,25 @@
+import countryTpl from './templates/countries.hbs';
+import fetchCountry from './JS/fetchCountries';
 
-const url = 'https://restcountries.eu/rest/v2/name/ukrain';
+const refs = {
+  countryContainer: document.querySelector('.js-country'),
+  countrySearch: document.querySelector('.js-search-form'),
+}
 
+  refs.countrySearch.addEventListener('input', event => {
+  event.preventDefault();
 
-fetch(url)
-  .then(response => response.json())
-  .then(country => console.log(country));
+  const form = event.currentTarget;
+  const inputValue = form.elements.query.value;
+
+  refs.countryContainer.innerHTML = '';
+  fetchCountry(inputValue).then(updateCountryMarkup);
+  
+});
+
+function updateCountryMarkup(country) {
+   const markup = countryTpl(country);
+    refs.countryContainer.insertAdjacentHTML('beforeend', markup);
+}
 
 //   https://restcountries.eu/rest/v2/all?fields=name;capital;currencies
