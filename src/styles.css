@@ -10,12 +10,49 @@ html {
 
 body {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 100vh;
-  margin: 0;
+  margin: 10px;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
     Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
   background-color: #fff;
   color: #212121;
+}
+
+.search-form {
+  position: absolute;
+  content: "";
+  left: 2%;
+ 
+}
+
+.card__country {
+  background-color: rgba(248, 245, 245, 20);
+  list-style: none; 
+}
+
+.card__country-name {
+  text-align: center;
+  font-size: 52px;
+}
+
+.card__container {
+  
+  font-size: 32px;
+}
+
+.card__capital {
+  font-weight: 700; 
+}
+
+.card__population {
+  font-weight: 700;
+}
+
+.card__languages {
+  margin-left: -40px;
+  font-weight: 700;
+}
+
+.card__flag {
+ display: flex;
+ margin-left: 30%;
 }
