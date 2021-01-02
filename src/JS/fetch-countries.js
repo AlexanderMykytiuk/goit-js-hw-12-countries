@@ -1,4 +1,5 @@
 function fetchCountry(searchQwery) {
+    
     const url = 'https://restcountries.eu/rest/v2/name/';
   
    return fetch(`${url}${searchQwery}`)

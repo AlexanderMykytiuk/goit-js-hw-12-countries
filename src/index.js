@@ -1,31 +1,39 @@
 import './styles.css';
-var debounce = require('lodash.debounce');
 import fetchCountry from './JS/fetch-countries';
 import updateCountryMarkup from './JS/update-country-markup';
 import refs from './JS/refs';
 
-//  refs.countrySearch.addEventListener('input', event => {
-//   event.preventDefault();
+var debounce = require('lodash.debounce');
 
-//   const form = event.currentTarget;
-//   const inputValue = form.elements.query.value;
+import { alert, notice, info, success, error } from '@pnotify/core';
+import "@pnotify/core/dist/PNotify.css";
+import "@pnotify/core/dist/BrightTheme.css";
+import "@pnotify/confirm/dist/PNotifyConfirm.css";
 
-//   refs.countryContainer.innerHTML = '';
-  
-//   fetchCountry(inputValue).then(updateCountryMarkup);
-// });
-
-//   https://restcountries.eu/rest/v2/all?fields=name;capital;currencies
-
-
-  const debounceInput = debounce(event => {
+const debounceInput = debounce(event => {
   event.preventDefault();
 
   const inputValue = event.target.value;
 
   refs.countryContainer.innerHTML = '';
   
-  fetchCountry(inputValue).then(updateCountryMarkup);
-}, 1000);
+  fetchCountry(inputValue).then(country => {
+    if (country.length > 10) {
+      info({ text: 'Too many matches found. Please enter a more specific query!' });
+
+    } else if (country.length <= 10 && country.length >= 2) {
+      const countries = country.map(count => `<li class="list-items">${count.name}</li>`);
+      const countryList = countries.join(" ")
+      refs.countryContainer.innerHTML = countryList;
+
+    } else if (country.length === 1) {
+      (updateCountryMarkup(country))
+
+    } else {
+      error({text: 'Please enter a valid country name!'});
+    }
+  });
+}, 500);
 
 refs.countrySearch.addEventListener('input', debounceInput);
+  
