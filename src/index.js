@@ -3,13 +3,12 @@ import fetchCountry from './JS/fetch-countries';
 import updateCountryMarkup from './JS/update-country-markup';
 import refs from './JS/refs';
 
-var debounce = require('lodash.debounce');
-
 import { alert, notice, info, success, error } from '@pnotify/core';
 import "@pnotify/core/dist/PNotify.css";
 import "@pnotify/core/dist/BrightTheme.css";
 import "@pnotify/confirm/dist/PNotifyConfirm.css";
 
+const debounce = require('lodash.debounce');
 
 function searchCountry(event) {
   event.preventDefault();
@@ -31,7 +30,7 @@ function searchResult(inputText) {
         refs.countryContainer.innerHTML = countryList;
 
       } else if (country.length === 1) {
-        (updateCountryMarkup(country))
+        updateCountryMarkup(country)
 
       } else {
         error({text: 'Please enter a valid country name!'});
@@ -40,5 +39,6 @@ function searchResult(inputText) {
   }
 }
   
+refs.countrySearch.addEventListener('submit', (event) => event.preventDefault());
 refs.countrySearch.addEventListener('input', debounce(searchCountry, 500));
   
